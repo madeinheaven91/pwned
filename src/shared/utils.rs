@@ -1,6 +1,6 @@
 use std::{io::Error, ops::{Add, Sub}};
 
-pub fn unimplemented_err() -> Result<(), Error> {
+pub fn _unimplemented_err() -> Result<(), Error> {
     Err(Error::new(std::io::ErrorKind::Other, "Not implemented"))
 }
 

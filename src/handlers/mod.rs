@@ -23,8 +23,6 @@ pub fn handle_keys(key: event::KeyEvent, state: &mut App) -> Result<(), Error> {
         InputMode::Selected => {
             handle_selected(key, state)?
         }
-        _ => ()
-
     }
     Ok(())
 }

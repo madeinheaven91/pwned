@@ -9,9 +9,9 @@ use crate::{
 };
 use ratatui::{
     backend::Backend,
-    layout::{Alignment, Constraint, Direction, Flex, Layout},
+    layout::{Constraint, Direction, Layout},
     style::Stylize,
-    widgets::{Block, BorderType, Paragraph},
+    widgets::{Block, BorderType},
     Frame,
 };
 

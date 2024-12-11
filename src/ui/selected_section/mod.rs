@@ -1,7 +1,6 @@
 use crate::{ui::selected_section::header::header, App};
 use ratatui::{
-    layout::{Alignment, Constraint, Direction, Flex, Layout, Rect},
-    style::Stylize,
+    layout::{Constraint, Direction, Flex, Layout, Rect},
     widgets::{Block, Padding, Paragraph},
     Frame,
 };
