@@ -1,7 +1,7 @@
 use ratatui::{layout::Rect, widgets::{Block, BorderType, Padding, Paragraph}, Frame};
 use ratatui::prelude::Stylize;
 
-use crate::shared::{app::App, types::InputMode, utils::Lexicon};
+use crate::shared::{app::App, types::input_mode::InputMode, utils::Lexicon};
 
 
 pub fn search_bar(f: &mut Frame, state: &mut App, area: Rect) {

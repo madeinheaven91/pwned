@@ -30,6 +30,10 @@ pub enum Lexicon {
     SearchPlaceholder,
     NoEntries,
     NothingFound,
+
+    HelperNormal,
+    HelperSelected,
+    HelperSearch,
 }
 
 impl Lexicon {
@@ -38,6 +42,10 @@ impl Lexicon {
             Lexicon::SearchPlaceholder => "  Press <S> to search...",
             Lexicon::NoEntries => "No bitches?\nPress <N> for new",
             Lexicon::NothingFound => "Nothing found...",
+
+            Lexicon::HelperNormal => "<Tab> - next, <Shift + Tab> - prev, <Enter> - select, <Del> - delete",
+            Lexicon::HelperSearch => "<Del> - delete query, <Esc> - exit search",
+            Lexicon::HelperSelected => "<E> - edit field, <Del> - delete field",
         }
     }
 }

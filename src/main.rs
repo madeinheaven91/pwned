@@ -1,22 +1,20 @@
-use crate::shared::app::App;
+use crate::{db::Db, shared::app::App};
 use crossterm::{
     event::{self, DisableMouseCapture, EnableMouseCapture, Event}, execute, terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen}
 };
 use ratatui::{
     backend::{Backend, CrosstermBackend}, Terminal
 };
-use std::io::Error;
 
 mod handlers;
 mod ui;
 mod shared;
+mod db;
 
 use handlers::handle_keys;
 use ui::ui;
 
-
-
-fn main() -> Result<(), Error> {
+fn main() -> anyhow::Result<()> {
     enable_raw_mode()?;
     execute!(
         std::io::stdout(), 
@@ -26,6 +24,8 @@ fn main() -> Result<(), Error> {
     let backend = CrosstermBackend::new(std::io::stdout());
     let mut terminal = Terminal::new(backend)?;
     let mut state = App::new();
+    let db = Db::new();
+    db.init()?;
 
     let result = run_app(&mut terminal, &mut state);
 
@@ -46,9 +46,10 @@ fn main() -> Result<(), Error> {
 
 fn run_app<B: Backend>(terminal: &mut Terminal<B>, state: &mut App) -> Result<(), std::io::Error> {
     loop {
-        if state.filtered_credentials.is_empty(){
-            state.selected_cred_id = None;
-        }        terminal.draw(|f| ui::<B>(f, state))?;
+        if state.selected_cred.is_none(){
+            state.hovered_field = None;
+        }
+        terminal.draw(|f| ui(f, state))?;
         if let Event::Key(key) = event::read()? {
             handle_keys(key, state)?;
         }

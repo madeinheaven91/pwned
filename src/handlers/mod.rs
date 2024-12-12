@@ -1,5 +1,4 @@
-use crate::shared::types::InputMode;
-use crate::App;
+use crate::{shared::types::input_mode::InputMode, App};
 use std::io::Error;
 use crossterm::event::{self};
 use crate::handlers::{help::handle_help, normal::handle_normal, search::handle_search, selected::handle_selected};

@@ -17,7 +17,7 @@ pub fn entries(f: &mut Frame, state: &mut App, area: Rect) {
 
     let entries_chunk = Layout::default().constraints(constrains).split(area);
 
-    for (i, item) in state.filtered_credentials.iter().enumerate() {
+    for (i, item) in state.filtered_credentials.values().enumerate() {
         let text = Paragraph::new(format!(
             "{}   {}",
             item.icon.unwrap_or_default(),

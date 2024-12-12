@@ -1,6 +1,6 @@
 use ratatui::{layout::{Constraint, Flex, Layout, Rect}, style::{Style, Stylize}, Frame};
 
-use crate::shared::{app::App, types::Popup};
+use crate::shared::{app::App, widgets::popup::Popup};
 
 
 pub fn help_popup(f: &mut Frame, _state: &mut App, area: Rect) {

@@ -1,14 +1,13 @@
+mod help_popup;
 mod list_section;
 mod selected_section;
-mod help_popup;
 
 use crate::{
-    shared::types::InputMode,
+    shared::types::input_mode::InputMode,
     ui::{help_popup::help_popup, list_section::list_section, selected_section::selected_section},
     App,
 };
 use ratatui::{
-    backend::Backend,
     layout::{Constraint, Direction, Layout},
     style::Stylize,
     widgets::{Block, BorderType},
@@ -16,16 +15,20 @@ use ratatui::{
 };
 
 // Main function that renders all the ui
-pub fn ui<B: Backend>(f: &mut Frame, state: &mut App) {
+pub fn ui(f: &mut Frame, state: &mut App) {
     let main_chunk = Layout::default()
         .direction(Direction::Horizontal)
         .constraints([Constraint::Percentage(30), Constraint::Percentage(70)])
         .split(f.area());
 
-    let list_section_box = Block::bordered();
-    let mut selected_section_box = Block::bordered().border_type(BorderType::Plain).white();
+    let mut list_section_box = Block::bordered().white();
+    if let InputMode::Normal = state.mode {
+        list_section_box = list_section_box.border_type(BorderType::Double).green();
+    }
+
+    let mut selected_section_box = Block::bordered().white();
     if let InputMode::Selected = state.mode {
-        selected_section_box = selected_section_box.yellow();
+        selected_section_box = selected_section_box.border_type(BorderType::Double).green();
     }
 
     // list section
@@ -47,10 +50,10 @@ pub fn ui<B: Backend>(f: &mut Frame, state: &mut App) {
     if let InputMode::Help = state.mode {
         help_popup(f, state, f.area());
     }
-
 }
 
 // Component convention:
+//
 // components are functions that take frame, state and area (Rect) as inputs
 //
 // they return nothing and in the end do the f.render_widget thing
