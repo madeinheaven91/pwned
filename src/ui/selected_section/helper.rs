@@ -1,5 +1,5 @@
 use ratatui::{
-    layout::{Alignment, Constraint, Direction, Layout, Rect}, style::Stylize, widgets::{Block, Paragraph}, Frame
+    layout::{Alignment, Rect}, style::Stylize, widgets::Paragraph, Frame
 };
 
 use crate::shared::{app::App, types::input_mode::InputMode, utils::Lexicon};

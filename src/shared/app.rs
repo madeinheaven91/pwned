@@ -1,8 +1,8 @@
 use indexmap::IndexMap;
 
 use crate::{
-    db::Db,
-    shared::types::{credential::Credential, icon::Icon, input_mode::InputMode},
+    manager::Db,
+    shared::{types::{credential::Credential, icon::Icon, input_mode::InputMode}, utils::safe_sub},
 };
 
 pub struct App {
@@ -11,14 +11,16 @@ pub struct App {
     pub credentials: IndexMap<usize, Credential>, // all stored credentials
     pub hovered_cred_id: usize,
     pub selected_cred: Option<Credential>,
-    pub filtered_credentials: IndexMap<usize, Credential>,
+    pub filtered_credentials: Vec<Credential>,
     pub hovered_field: Option<usize>,
     pub hovered_subfield: usize,
     pub db: Db,
+    pub master: String,
+    pub salt: String
 }
 
 impl App {
-    pub fn new() -> Self {
+    pub fn new(master: String) -> Self {
         let mut cred = IndexMap::new();
         cred.insert(0, Credential::new(0, "Github".to_string(), Some(Icon::Github), vec![
             ("Username".to_owned(), "heven91".to_owned()),
@@ -33,6 +35,8 @@ impl App {
             ("Username".to_owned(), "dro4er".to_owned()),
             ("Password".to_owned(), "koncha228".to_owned()),
         ]));
+
+        let db = Db::new();
         App {
             mode: InputMode::Normal,
             credentials: cred.clone(),
@@ -41,8 +45,10 @@ impl App {
             hovered_subfield: 0,
             selected_cred: None,
             search_query: String::new(),
-            filtered_credentials: cred,
-            db: Db::new(),
+            filtered_credentials: cred.values().cloned().collect(),
+            master,
+            salt: db.get_metadata("salt").unwrap(),
+            db
         }
     }
 
@@ -54,8 +60,23 @@ impl App {
         self.filtered_credentials.clear();
         for cred in self.credentials.values(){
             if cred.title.to_lowercase().contains(&self.search_query) {
-                self.filtered_credentials.insert(cred.id, cred.clone());
+                self.filtered_credentials.push(cred.clone());
             }
         }
+    }
+
+    pub fn add_cred(&mut self){
+        unimplemented!()
+    }
+    
+    pub fn delete_hovered_cred(&mut self){
+        self
+            .credentials
+            .shift_remove(&self.filtered_credentials[self.hovered_cred_id].id.clone());
+        self.selected_cred = None;
+        self.hovered_cred_id = safe_sub(self.hovered_cred_id, 0);
+        self.hovered_subfield = 0;
+        self.hovered_field = None;
+        self.filter_credentials();
     }
 }

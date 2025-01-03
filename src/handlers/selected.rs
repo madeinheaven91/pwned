@@ -31,14 +31,21 @@ pub fn handle_selected(key: event::KeyEvent, state: &mut App) -> Result<(), Erro
         KeyCode::Right | KeyCode::Char('l') => {
             if state.hovered_subfield == 0 {
                 state.hovered_subfield = 1;
-            }else{
-                state.hovered_subfield = 0;
             }
         }
         KeyCode::Esc => {
             state.selected_cred = None;
             state.change_mode(InputMode::Normal)
         }
+
+        KeyCode::Tab => {
+            state.hovered_subfield = match state.hovered_subfield {
+                0 => 1,
+                1 => 0,
+                _ => 0
+            }
+        }
+        KeyCode::Char('e') => state.change_mode(InputMode::Edit),
         _ => (),
     }
     Ok(())

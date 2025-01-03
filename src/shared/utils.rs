@@ -43,9 +43,9 @@ impl Lexicon {
             Lexicon::NoEntries => "No bitches?\nPress <N> for new",
             Lexicon::NothingFound => "Nothing found...",
 
-            Lexicon::HelperNormal => "<Tab> - next, <Shift + Tab> - prev, <Enter> - select, <Del> - delete",
+            Lexicon::HelperNormal => "<Tab> - next, <Shift + Tab> - prev, <Enter> - select, <D> - delete",
             Lexicon::HelperSearch => "<Del> - delete query, <Esc> - exit search",
-            Lexicon::HelperSelected => "<E> - edit field, <Del> - delete field",
+            Lexicon::HelperSelected => "<E> - edit field, <D> - delete field",
         }
     }
 }

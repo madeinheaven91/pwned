@@ -1,4 +1,4 @@
-use crate::{shared::types::input_mode::InputMode, App};
+use crate::shared::{types::input_mode::InputMode, app::App};
 use crossterm::event::{self, KeyCode};
 use std::io::Error;
 

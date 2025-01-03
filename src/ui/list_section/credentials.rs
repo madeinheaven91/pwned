@@ -10,14 +10,14 @@ use ratatui::{
 };
 
 pub fn entries(f: &mut Frame, state: &mut App, area: Rect) {
-    let mut constrains: Vec<Constraint> = vec![];
+    let mut constraints: Vec<Constraint> = vec![];
     for _ in &state.filtered_credentials {
-        constrains.push(Constraint::Length(3));
+        constraints.push(Constraint::Length(3));
     }
 
-    let entries_chunk = Layout::default().constraints(constrains).split(area);
+    let entries_chunk = Layout::default().constraints(constraints).split(area);
 
-    for (i, item) in state.filtered_credentials.values().enumerate() {
+    for (i, item) in state.filtered_credentials.iter().enumerate() {
         let text = Paragraph::new(format!(
             "{}   {}",
             item.icon.unwrap_or_default(),

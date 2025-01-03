@@ -4,4 +4,7 @@ pub enum InputMode {
     Help,
     Search,
     Selected,
+    Edit,
+    DeleteEntry,
+    DeleteField
 }

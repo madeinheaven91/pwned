@@ -42,7 +42,7 @@ impl Icon {
 "@    @   @@   @    @",
 "@  @            @  @",
 "@@................@@"],
-            _ => vec![]
+            _ => vec!["", "", ""]
         }
     }
     pub fn get_art(&self) -> String {
@@ -55,6 +55,16 @@ impl Icon {
         let h = self.vec().len() as u16;
         let w = lengths.into_iter().max().unwrap_or_default() as u16;
         (h, w)
+    }
+
+    pub fn from(i: i32) -> Self {
+        match i {
+            1 => Icon::Mail,
+            2 => Icon::Github,
+            3 => Icon::Bank,
+            4 => Icon::Messenger,
+            _ => Icon::None
+        }
     }
 }
 

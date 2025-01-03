@@ -1,6 +1,5 @@
 use crate::{
-    ui::selected_section::{entry::entry, header::header, helper::helper},
-    App,
+    shared::app::App, ui::selected_section::{entry::entry, header::header, helper::helper}
 };
 use ratatui::{
     layout::{Constraint, Direction, Flex, Layout, Rect},

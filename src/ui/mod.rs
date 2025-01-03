@@ -1,11 +1,11 @@
 mod help_popup;
 mod list_section;
 mod selected_section;
+mod delete_popup;
 
 use crate::{
-    shared::types::input_mode::InputMode,
-    ui::{help_popup::help_popup, list_section::list_section, selected_section::selected_section},
-    App,
+    shared::{app::App, types::input_mode::InputMode},
+    ui::{delete_popup::delete_popup, help_popup::help_popup, list_section::list_section, selected_section::selected_section},
 };
 use ratatui::{
     layout::{Constraint, Direction, Layout},
@@ -47,8 +47,10 @@ pub fn ui(f: &mut Frame, state: &mut App) {
     f.render_widget(selected_section_box, main_chunk[1]);
     selected_section(f, state, center);
 
-    if let InputMode::Help = state.mode {
-        help_popup(f, state, f.area());
+    match state.mode {
+        InputMode::DeleteEntry  | InputMode::DeleteField => delete_popup(f, state, f.area()),
+        InputMode::Help => help_popup(f, state, f.area()),
+        _ => (),
     }
 }
 
